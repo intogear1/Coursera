@@ -1,0 +1,18 @@
+import urllib.request, urllib.parse, urllib.error
+import xml.etree.ElementTree as ET
+
+''' 1.Read XML data from URL using urllib
+    2.Parse and extract the comment counts from the XML data
+    3.Compute the sum of the numbers in the file
+'''
+flst = []
+url = input("Enter URL: ")
+read = urllib.request.urlopen(url).read()
+
+tree  = ET.fromstring(read)
+lst = tree.findall('comments/comment')
+print('Count: ', len(lst))
+for num in lst:
+    numbers = int(num.find('count').text)
+    flst.append(numbers)
+print("Sum: " , sum(flst))
